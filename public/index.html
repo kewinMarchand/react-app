@@ -13,13 +13,10 @@
       Vous devez activer JavaScript pour voir ce site.
     </noscript>
     <div id="root"></div>
-    <form name="contact" netlify hidden>
-        <label for="#contactFormName">Votre nom</label>
-        <input id="#contactFormName" type="text" name="name" />
-        <label for="#contactFormEmail">Votre email</label>
-        <input id="#contactFormEmail" type="email" name="email" />
-        <label for="#contactFormMessage">Votre email</label>
-        <textarea id="#contactFormMessage" name="message"></textarea>
+    <form name="contact" method="post" netlify hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
         <button type="submit">Envoyer</button>
     </form>
   </body>
