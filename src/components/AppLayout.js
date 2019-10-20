@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from "react"
+import React, { Component } from "react"
+import {BrowserRouter as Router} from 'react-router-dom'
 // Theme
-import { ThemeProvider } from '@material-ui/styles';
-import {Theme} from '../theme/Theme'
+import { ThemeProvider } from '@material-ui/styles'
+import Theme from '../theme/Theme'
 // UI components
 import {CssBaseline, Grid} from '@material-ui/core'
 // custom components
@@ -11,9 +12,9 @@ import PageFooter from './PageFooter'
 class AppLayout extends Component {
   render() {
     return (
-      <Fragment>
-        <ThemeProvider theme={Theme}>
-          <CssBaseline/>
+      <ThemeProvider theme={Theme}>
+        <CssBaseline/>
+        <Router>
           <PageHeader/>
           <Grid container
               className="App"
@@ -26,8 +27,8 @@ class AppLayout extends Component {
               {this.props.children}
           </Grid>
           <PageFooter/>
-        </ThemeProvider>
-      </Fragment>
+        </Router>
+      </ThemeProvider>
     )
   }
 }

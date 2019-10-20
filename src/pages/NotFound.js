@@ -1,19 +1,17 @@
 import React, { Component } from "react"
-// UI components
-import {Typography} from '@material-ui/core'
 // custom components
 import PageLayout from '../components/PageLayout'
 
-class Home extends Component {
+class NotFound extends Component {
   render() {
     return (
         <PageLayout 
-          title={'Accueil'}
-          subtitle={'Bienvenue'}
+          title={'Oups !'}
+          subtitle={'La page que vous recherchez n\'existe pas'}
         >
         </PageLayout>
     )
   }
 }
 
-export default Home
+export default NotFound

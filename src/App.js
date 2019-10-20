@@ -2,13 +2,13 @@ import React, { Component } from "react"
 // custom components
 import AppLayout from './components/AppLayout'
 // routes
-import Home from './pages/Home'
+import Routes from './routes/Routes'
 
 class App extends Component {
   render() {
     return (
       <AppLayout>
-        <Home/>
+        <Routes/>
       </AppLayout>
     )
   }

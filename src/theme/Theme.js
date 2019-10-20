@@ -1,17 +1,47 @@
-// function
-import { createMuiTheme } from '@material-ui/core/styles';
+// functions
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 // MUI colors
 import { green, orange } from '@material-ui/core/colors';
 
 const palette = {
-    primary: {
-      main: green[700],
-    },
-    secondary: {
-      main: orange[300],
-    },
-  }
+    primary: green,
+    secondary: orange
+}
 
-export const Theme = createMuiTheme({
+const typography = {
+    fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+    // Tell Material-UI what's the font-size on the html element is.
+    htmlFontSize: 10,
+    h1: {
+        fontSize: '3.5rem',
+        fontWeight: 700
+    },
+    h2: {
+        fontSize: '3rem',
+        fontWeight: 500
+    },
+    body1: {
+        fontWeight: 500
+    },
+    button: {
+        textTransform: 'capitalize'
+    },
+}
+
+let Theme = createMuiTheme({
   palette,
+  typography
 });
+
+export default Theme = responsiveFontSizes(Theme);

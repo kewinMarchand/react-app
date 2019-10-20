@@ -1,17 +1,25 @@
 import React, { Component } from "react"
 // UI components
-import {AppBar, Toolbar} from '@material-ui/core'
+import {AppBar, Grid, Toolbar} from '@material-ui/core'
 // custom components
 import AppLogo from "./AppLogo"
+import AppMenu from "./AppMenu"
 
 class PageHeader extends Component {
   render() {
     return (
-        <AppBar position={'relative'}>
-            <Toolbar component={'nav'}>
-              <AppLogo height={40} />
-            </Toolbar>
-        </AppBar>
+      <AppBar position={'relative'} color={'default'}>
+          <Toolbar component={'nav'}>
+            <Grid container justify={'space-between'} alignItems={'center'}>
+              <Grid item>
+                <AppLogo height={40} width={40}/>
+              </Grid>
+              <Grid item>
+                <AppMenu/>
+              </Grid>
+            </Grid>
+          </Toolbar>
+      </AppBar>
     )
   }
 }
