@@ -2,12 +2,12 @@ import React, { Component } from "react"
 import {BrowserRouter as Router} from 'react-router-dom'
 // Theme
 import { ThemeProvider } from '@material-ui/styles'
-import Theme from '../theme/Theme'
+import Theme from '../../theme/Theme'
 // UI components
 import {CssBaseline, Grid} from '@material-ui/core'
 // custom components
-import PageHeader from './PageHeader'
-import PageFooter from './PageFooter'
+import AppHeader from './AppHeader'
+import AppFooter from './AppFooter'
 
 class AppLayout extends Component {
   render() {
@@ -15,7 +15,7 @@ class AppLayout extends Component {
       <ThemeProvider theme={Theme}>
         <CssBaseline/>
         <Router>
-          <PageHeader/>
+          <AppHeader/>
           <Grid container
               className="App"
               component={'main'}
@@ -26,7 +26,7 @@ class AppLayout extends Component {
           >       
               {this.props.children}
           </Grid>
-          <PageFooter/>
+          <AppFooter/>
         </Router>
       </ThemeProvider>
     )

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { NavLink } from 'react-router-dom'
 // Theme
-import Theme from "../theme/Theme"
+import Theme from "../../theme/Theme"
 
 class AppLogo extends Component {
   render() {

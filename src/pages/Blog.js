@@ -1,11 +1,14 @@
 import React, { Component } from "react"
+// Theme
+import Theme from "../theme/Theme"
 // custom components
-import PageLayout from '../components/PageLayout'
+import PageLayout from '../components/page/PageLayout'
 
 class Blog extends Component {
   render() {
     return (
-        <PageLayout 
+        <PageLayout
+            backgroundColor={Theme.palette.primary.main}
             title={'Blog'}
             subtitle={'Dernières actualités'}
         >

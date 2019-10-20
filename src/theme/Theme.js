@@ -5,7 +5,8 @@ import { green, orange } from '@material-ui/core/colors';
 
 const palette = {
     primary: green,
-    secondary: orange
+    secondary: orange,
+    textLight: '#FFF'
 }
 
 const typography = {
@@ -29,6 +30,10 @@ const typography = {
     },
     h2: {
         fontSize: '3rem',
+        fontWeight: 500
+    },
+    h3: {
+        fontSize: '2.5rem',
         fontWeight: 500
     },
     body1: {
