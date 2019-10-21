@@ -27,7 +27,6 @@ class ContactForm extends Component {
 
     handleSubmit = e => {
         const {name, email, message} = this.state
-        const form = Object.assign({}, {name, email, message})
         fetch("/", {
             method: "POST",
             headers: { 
@@ -35,15 +34,17 @@ class ContactForm extends Component {
             },
             body: this.encode({ 
                 "form-name": "contact",
-                ...form
+                name: name, 
+                email: email,
+                message: message
             })
             
         })
             .then(resp => {
                 resp.ok ?
-                this.openSuccessSnackbar(resp)
+                    this.openSuccessSnackbar(resp)
                 :
-                this.openErrorSnackbar(resp)
+                    this.openErrorSnackbar(resp)
             })
             .catch(error => {
                 this.openErrorSnackbar(error)
@@ -108,11 +109,6 @@ class ContactForm extends Component {
                             name="contact"
                             onSubmit={this.handleSubmit}
                         >
-                            <input 
-                                name="form-name"
-                                type="hidden" 
-                                value="contact" 
-                            />
                             <TextField
                                 autoComplete="name"
                                 autoFocus
