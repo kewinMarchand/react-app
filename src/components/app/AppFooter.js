@@ -8,6 +8,7 @@ import {AppBar, Grid, Toolbar} from '@material-ui/core'
 import AppLogo from "./AppLogo"
 import AppMenu from "./AppMenu"
 import Container from "../Container"
+import NewsletterForm from "../contact/NewsletterForm"
 
 class AppFooter extends Component {
   render() {
@@ -22,6 +23,9 @@ class AppFooter extends Component {
                 >
                   <Grid item>
                     <AppMenu direction={'column'}/>
+                  </Grid>
+                  <Grid item>
+                    <NewsletterForm/>
                   </Grid>
                   <Grid item>
                     <AppLogo height={64} width={64}/>

@@ -84,10 +84,21 @@ class ContactForm extends Component {
     }
 
     validForm = () => {
-        const hasName = '' !== this.state.name,
-            hasEmail = '' !== this.state.email,
-            hasMessage = '' !== this.state.message
+        const {name, email, message} = this.state
+        const hasName = '' !== name && this.validateName(name),
+            hasEmail = '' !== email && this.validateEmail(email),
+            hasMessage = '' !== message
         return hasName && hasEmail && hasMessage
+    }
+
+    validateName(name) {
+        const re = /^[a-zA-Z0-9\s]{2,}$/;
+        return re.test(name);
+    }
+
+    validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 
     render() {
