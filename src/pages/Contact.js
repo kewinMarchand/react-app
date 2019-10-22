@@ -2,7 +2,7 @@ import React, { Component } from "react"
 // Theme
 import Theme from "../theme/Theme"
 // custom components
-import ContactForm from '../components/contact/ContactForm'
+import ContactForm from '../components/forms/ContactForm'
 import PageLayout from '../components/page/PageLayout'
 
 class Contact extends Component {

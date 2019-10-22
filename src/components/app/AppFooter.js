@@ -8,7 +8,7 @@ import {AppBar, Grid, Toolbar} from '@material-ui/core'
 import AppLogo from "./AppLogo"
 import AppMenu from "./AppMenu"
 import Container from "../Container"
-import NewsletterForm from "../contact/NewsletterForm"
+import NewsletterForm from "../forms/NewsletterForm"
 
 class AppFooter extends Component {
   render() {

@@ -1,12 +1,16 @@
-import React, { Component, Fragment } from "react"
+import React, { Fragment } from "react"
+// Abstract
+import FormAbstract from './FormAbstract'
 // Theme
 import Theme from "../../theme/Theme"
 // UI components
-import {Button, Card, CardActions, CardContent, Grid, TextField} from '@material-ui/core'
+import {Card, CardActions, CardContent, Grid, IconButton, TextField} from '@material-ui/core'
+// Icons
+import SendIcon from '@material-ui/icons/Send'
 // custom components
-import ContactSnackbar from './ContactSnackbar'
+import CommonSnackbar from '../snackbars/CommonSnackbar'
 
-class NewsletterForm extends Component {
+class NewsletterForm extends FormAbstract {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,12 +19,6 @@ class NewsletterForm extends Component {
             snackbarMessage: '',
             success: true
         }
-    }
-
-    encode = (data) => {
-        return Object.keys(data)
-            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-            .join("&");
     }
 
     handleSubmit = e => {
@@ -51,9 +49,7 @@ class NewsletterForm extends Component {
 
     openSuccessSnackbar = (resp) => {
         this.setState({
-            name: '', 
             email: '',
-            message: '',
             snackbarIsOpen: true, 
             snackbarMessage: 'Votre abonnement à notre newsletter est pris en compte',
             success: resp
@@ -63,7 +59,7 @@ class NewsletterForm extends Component {
     openErrorSnackbar = (error) => {
         this.setState({
             snackbarIsOpen: true, 
-            snackbarMessage: 'Oups, quelque chose s\'est mal passé',
+            snackbarMessage: 'Oups, quelque chose s\'est mal passé !',
             success: !error
         })
     }
@@ -80,14 +76,7 @@ class NewsletterForm extends Component {
     }
 
     validForm = () => {
-        const {email} = this.state
-        const hasEmail = '' !== email && this.validateEmail(email)
-        return hasEmail 
-    }
-
-    validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
+        return this.validateEmail(this.state.email) 
     }
 
     render() {
@@ -111,27 +100,26 @@ class NewsletterForm extends Component {
                         onChange={this.handleChange}
                         placeholder="email"
                         required
-                        style={{width: 380}}
+                        style={{marginBottom: 16, width: 380}}
                         type="email"
                         value={email}
+                        variant={'outlined'}
                         InputProps={{
                             endAdornment:
-                                <Button
+                                <IconButton 
+                                    aria-label="validate form"
                                     color={'secondary'}
                                     disabled={!this.validForm()}
-                                    style={{color: '#FFF'}}
                                     type={'submit'}
-                                    size={'small'}
-                                    variant={'contained'}
                                 >
-                                    Ok
-                                </Button>
+                                    <SendIcon/>
+                                </IconButton>  
                             }
                         }
                         
                     />
                 </Grid>
-                <ContactSnackbar
+                <CommonSnackbar
                     handleClose={() => this.handleClose()}
                     snackbarIsOpen={snackbarIsOpen}
                     snackbarMessage={snackbarMessage}

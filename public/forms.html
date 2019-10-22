@@ -4,15 +4,25 @@
     <title>React App forms</title>
   </head>
   <body>
-    <form name="contact" method="post" netlify hidden>
+    <form
+      hidden 
+      method="post"
+      name="contact form" 
+      netlify 
+      netlify-honeypot="bot-field" 
+    >
         <input type="text" name="name" />
         <input type="email" name="email" />
         <textarea name="message"></textarea>
-        <button type="submit">Envoyer</button>
     </form>
-    <form name="newsletter subscription" method="post" netlify hidden>
+    <form
+      hidden 
+      method="post"
+      name="newsletter subscription"
+      netlify 
+      netlify-honeypot="bot-field" 
+    >
         <input type="email" name="email" />
-        <button type="submit">Envoyer</button>
     </form>
   </body>
 </html>

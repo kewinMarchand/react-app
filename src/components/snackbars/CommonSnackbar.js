@@ -1,10 +1,12 @@
-import React, { Component, Fragment } from "react"
+import React, { Component } from "react"
 // Theme
 import Theme from "../../theme/Theme"
 // UI components
-import {Fab, Snackbar, SnackbarContent} from '@material-ui/core'
+import {IconButton, Snackbar, SnackbarContent} from '@material-ui/core'
+// Icons
+import CloseIcon from '@material-ui/icons/Close'
 
-class ContactSnackbar extends Component {
+class CommonSnackbar extends Component {
     render() {
         const { handleClose, snackbarIsOpen, snackbarMessage, success } = this.props
         return (
@@ -22,20 +24,21 @@ class ContactSnackbar extends Component {
             >
                 <SnackbarContent
                     action={
-                        <Fab
+                        <IconButton 
                             aria-label="close"
-                            color="default"
+                            color="inherit"
                             onClick={handleClose}
                             size={'small'}
                         >
-                            ×
-                        </Fab>
+                            <CloseIcon/>
+                        </IconButton>      
                     }
                     message={
                         <span id="message-id">
                             {snackbarMessage}
                         </span>
                     }
+                    role={'alertdialog'}
                     style={{
                         backgroundColor: success ? Theme.palette.primary.main : Theme.palette.error.dark
                     }}
@@ -45,4 +48,4 @@ class ContactSnackbar extends Component {
     }
 }
 
-export default ContactSnackbar
+export default CommonSnackbar

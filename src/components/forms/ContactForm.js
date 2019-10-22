@@ -1,12 +1,14 @@
-import React, { Component, Fragment } from "react"
+import React, { Fragment } from "react"
+// Abstract
+import FormAbstract from './FormAbstract'
 // Theme
 import Theme from "../../theme/Theme"
 // UI components
 import {Button, Card, CardActions, CardContent, Grid, TextField} from '@material-ui/core'
 // custom components
-import ContactSnackbar from './ContactSnackbar'
+import CommonSnackbar from '../snackbars/CommonSnackbar'
 
-class ContactForm extends Component {
+class ContactForm extends FormAbstract {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,12 +21,6 @@ class ContactForm extends Component {
         }
     }
 
-    encode = (data) => {
-        return Object.keys(data)
-            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-            .join("&");
-    }
-
     handleSubmit = e => {
         const {name, email, message} = this.state
         fetch("/", {
@@ -33,7 +29,7 @@ class ContactForm extends Component {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: this.encode({ 
-                "form-name": "contact",
+                "form-name": "contact form",
                 name: name, 
                 email: email,
                 message: message
@@ -59,7 +55,7 @@ class ContactForm extends Component {
             email: '',
             message: '',
             snackbarIsOpen: true, 
-            snackbarMessage: 'Bravo, votre demande de contact est envoyée',
+            snackbarMessage: 'Votre demande de contact est envoyée',
             success: resp
         })
     }
@@ -67,13 +63,9 @@ class ContactForm extends Component {
     openErrorSnackbar = (error) => {
         this.setState({
             snackbarIsOpen: true, 
-            snackbarMessage: 'Oups, quelque chose s\'est mal passé',
+            snackbarMessage: 'Oups, quelque chose s\'est mal passé !',
             success: !error
         })
-    }
-  
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
     }
 
     handleClose = (e, reason) => {
@@ -82,23 +74,14 @@ class ContactForm extends Component {
         }
         this.setState({ snackbarIsOpen: false })
     }
+  
+    handleChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
 
     validForm = () => {
         const {name, email, message} = this.state
-        const hasName = '' !== name && this.validateName(name),
-            hasEmail = '' !== email && this.validateEmail(email),
-            hasMessage = '' !== message
-        return hasName && hasEmail && hasMessage
-    }
-
-    validateName(name) {
-        const re = /^[a-zA-Z0-9\s]{2,}$/;
-        return re.test(name);
-    }
-
-    validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
+        return this.validateName(name) && this.validateEmail(email) && '' !== message
     }
 
     render() {
@@ -117,7 +100,7 @@ class ContactForm extends Component {
                         <CardContent 
                             component={'form'}
                             method="post"
-                            name="contact"
+                            name="contact form"
                             onSubmit={this.handleSubmit}
                         >
                             <TextField
@@ -183,7 +166,7 @@ class ContactForm extends Component {
                         </CardContent>
                     </Card>
                 </Grid>
-                <ContactSnackbar
+                <CommonSnackbar
                     handleClose={() => this.handleClose()}
                     snackbarIsOpen={snackbarIsOpen}
                     snackbarMessage={snackbarMessage}
