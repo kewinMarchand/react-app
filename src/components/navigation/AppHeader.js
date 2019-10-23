@@ -2,7 +2,7 @@ import React, { Component } from "react"
 // UI components
 import {AppBar, Grid, Toolbar} from '@material-ui/core'
 // custom components
-import AppLogo from "./AppLogo"
+import AppLogo from "../app/AppLogo"
 import AppMenu from "./AppMenu"
 import Container from "../Container"
 
@@ -20,7 +20,7 @@ class AppHeader extends Component {
                   <AppMenu/>
                 </Grid>
               </Grid>
-            </Container>
+            </Container>s
           </Toolbar>
       </AppBar>
     )

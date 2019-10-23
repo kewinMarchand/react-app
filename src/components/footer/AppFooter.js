@@ -5,8 +5,8 @@ import Theme from "../../theme/Theme"
 // UI components
 import {AppBar, Grid, Toolbar} from '@material-ui/core'
 // custom components
-import AppLogo from "./AppLogo"
-import AppMenu from "./AppMenu"
+import AppLogo from "../app/AppLogo"
+import AppMenu from "../navigation/AppMenu"
 import Container from "../Container"
 import NewsletterForm from "../forms/NewsletterForm"
 
