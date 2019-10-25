@@ -1,47 +1,45 @@
-import React from "react"
-// Abstract
-import FormAbstract from './FormAbstract'
+import React, { Component } from "react"
+// mobx & stores
+import { inject, observer } from 'mobx-react'
 // UI components
 import {Card, CardActions, CardContent, Grid, IconButton, TextField} from '@material-ui/core'
 // Icons
 import SendIcon from '@material-ui/icons/Send'
-// custom components
-import { SnackbarConsumer } from '../snackbars/SnackbarContext'
 
-class NewsletterForm extends FormAbstract {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: ''
-        }
-    }
+class NewsletterForm extends Component {
 
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    validForm = () => {
-        return this.validateEmail(this.state.email) 
+    handleSubmit = (e) => {
+        const {openSnackbar} = this.props.stores.snackbarStore,
+            { encode, newsletterForm } = this.props.stores.formsStore,
+            errorMessage = 'Oups, quelque chose s\'est mal passé !',
+            successMessage = 'Votre abonnement à notre newsletter est pris en compte'
+        
+        fetch("/", {
+            method: "POST",
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: encode({"form-name": "newsletter subscription", ...newsletterForm})
+        })
+            .then(resp => {openSnackbar(resp.ok ? successMessage : errorMessage, resp.ok)})
+            .catch(error => {openSnackbar(errorMessage, !error)});
+        e.preventDefault();
     }
 
     render() {
-        const { email } = this.state
+        const { handleChange, newsletterEmailError, newsletterForm, newsletterFormError } = this.props.stores.formsStore
+        const { email } = newsletterForm
+
         return (     
-            <Grid container
-                component={'form'}
-                method="post"
-                name="newsletter subscription"
-            >
+            <Grid container component={'form'}>
                 <TextField
                     autoComplete="email"
-                    error={this.errorEmail(email)}
+                    error={newsletterEmailError}
                     fullWidth
-                    helperText={this.errorEmail(email) ? "L'email n'est pas valide" : ' '}
+                    helperText={newsletterEmailError ? "L'email n'est pas valide" : ' '}
                     id="formEmailInput"
                     label="Votre email"
                     margin="normal"
                     name="email"
-                    onChange={this.handleChange}
+                    onChange={e => handleChange(e, 'newsletter')}
                     placeholder="email"
                     required
                     style={{marginBottom: 2, width: 380}}
@@ -50,26 +48,16 @@ class NewsletterForm extends FormAbstract {
                     variant={'outlined'}
                     InputProps={{
                         endAdornment:
-                            <SnackbarConsumer>
-                                {({ openSnackbar }) => (
-                                    <IconButton 
-                                        aria-label="envoyer le formulaire"
-                                        autoFocus
-                                        color={'secondary'}
-                                        disabled={!this.validForm()}
-                                        onClick={e => this.handleSubmit(
-                                            e, 
-                                            this.state, 
-                                            "newsletter subscription", 
-                                            openSnackbar, 
-                                            'Votre abonnement à notre newsletter est pris en compte'
-                                        )}
-                                        type={'submit'}
-                                    >
-                                        <SendIcon/>
-                                    </IconButton>    
-                                )}
-                            </SnackbarConsumer>                    
+                            <IconButton 
+                                aria-label="envoyer le formulaire"
+                                autoFocus
+                                color={'secondary'}
+                                disabled={newsletterFormError}
+                                onClick={this.handleSubmit}
+                                type={'submit'}
+                            >
+                                <SendIcon/>
+                            </IconButton>                        
                     }}
                 />
             </Grid>
@@ -77,4 +65,4 @@ class NewsletterForm extends FormAbstract {
     }
 }
 
-export default NewsletterForm
+export default inject('stores')(observer(NewsletterForm))

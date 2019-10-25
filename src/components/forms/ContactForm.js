@@ -1,35 +1,35 @@
-import React, { Fragment } from "react"
-// Abstract
-import FormAbstract from './FormAbstract'
+import React, { Component } from "react"
+// mobx & stores
+import {inject, observer} from 'mobx-react'
 // UI components
 import {Button, Card, CardActions, CardContent, Grid, TextField} from '@material-ui/core'
-// custom components
-import { SnackbarConsumer } from '../snackbars/SnackbarContext'
 
-class ContactForm extends FormAbstract {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '', 
-            email: '',
-            message: ''
-        }
-    }
+class ContactForm extends Component {
 
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    validForm = () => {
-        const {name, email, message} = this.state
-        return this.validateName(name) && ('' !== email && this.validateEmail(email)) && '' !== message
+    handleSubmit = (e) => {
+        const {openSnackbar} = this.props.stores.snackbarStore,
+            { encode, contactForm } = this.props.stores.formsStore,
+            errorMessage = 'Oups, quelque chose s\'est mal passé !',
+            successMessage = 'Votre demande de contact est prise en compte'
+        
+        fetch("/", {
+            method: "POST",
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: encode({"form-name": "contact form", ...contactForm})
+        })
+            .then(resp => {openSnackbar(resp.ok ? successMessage : errorMessage, resp.ok)})
+            .catch((error) => {openSnackbar(errorMessage, !error)});
+        e.preventDefault();
     }
 
     render() {
-        const { name, email, message } = this.state
+        const {contactForm, contactEmailError, contactFormError, contactNameError, handleChange} = this.props.stores.formsStore,
+            {email, message, name} = contactForm
+
         return (
             <Grid container>
-                <Card 
+                <Card
+                    component={'form'}
                     style={{
                         margin: 'auto', 
                         marginBottom: 40, 
@@ -37,21 +37,17 @@ class ContactForm extends FormAbstract {
                         maxWidth: 600
                     }}
                 >
-                    <CardContent 
-                        component={'form'}
-                        method="post"
-                        name="contact form"
-                    >
+                    <CardContent>
                         <TextField
                             autoComplete="name"
-                            error={this.errorName(name)}
+                            error={contactNameError}
                             fullWidth
-                            helperText={this.errorName(name) ? "Le nom doit comporter au moins 2 caractères" : ' '}
+                            helperText={contactNameError ? "Le nom doit comporter au moins 2 caractères" : ' '}
                             id="formNameInput"
                             label="Votre nom"
                             margin="normal"
                             name="name"
-                            onChange={this.handleChange}
+                            onChange={e => handleChange(e, 'contact')}
                             placeholder="nom"
                             required
                             type="text"
@@ -60,14 +56,14 @@ class ContactForm extends FormAbstract {
                         />
                         <TextField
                             autoComplete="email"
-                            error={this.errorEmail(email)}
+                            error={contactEmailError}
                             fullWidth
-                            helperText={this.errorEmail(email) ? "L'email n'est pas valide" : ' '}
+                            helperText={contactEmailError ? "L'email n'est pas valide" : ' '}
                             id="formEmailInput"
                             label="Votre email"
                             margin="normal"
                             name="email"
-                            onChange={this.handleChange}
+                            onChange={e => handleChange(e, 'contact')}
                             placeholder="email"
                             required
                             type="email"
@@ -82,7 +78,7 @@ class ContactForm extends FormAbstract {
                             margin="normal"
                             multiline
                             name="message"
-                            onChange={this.handleChange}
+                            onChange={e => handleChange(e, 'contact')}
                             placeholder="message"
                             required
                             rows={8}
@@ -92,28 +88,18 @@ class ContactForm extends FormAbstract {
                         />
                         <CardActions>
                             <Grid container justify={'center'} style={{paddingTop: 16}}>
-                                <SnackbarConsumer>
-                                    {({ openSnackbar }) => (
-                                        <Button
-                                            aria-label="envoyer le formulaire"
-                                            autoFocus
-                                            color={'secondary'}
-                                            disabled={!this.validForm()}
-                                            style={{color: '#FFF'}}
-                                            onClick={e => this.handleSubmit(
-                                                e, 
-                                                this.state, 
-                                                "contact form", 
-                                                openSnackbar, 
-                                                'Votre demande de contact est prise en compte'
-                                            )}
-                                            type={'submit'}
-                                            variant={'contained'}
-                                        >
-                                            Envoyer
-                                        </Button>
-                                    )}
-                                </SnackbarConsumer>
+                                <Button
+                                    aria-label="envoyer le formulaire"
+                                    autoFocus
+                                    color={'secondary'}
+                                    disabled={!contactFormError}
+                                    style={{color: '#FFF'}}
+                                    onClick={this.handleSubmit}
+                                    type={'submit'}
+                                    variant={'contained'}
+                                >
+                                    Envoyer
+                                </Button>
                             </Grid>
                         </CardActions> 
                     </CardContent>
@@ -123,4 +109,4 @@ class ContactForm extends FormAbstract {
     }
 }
 
-export default ContactForm
+export default inject('stores')(observer(ContactForm))

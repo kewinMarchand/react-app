@@ -5,7 +5,7 @@ import Theme from "../../theme/Theme"
 
 class AppLogo extends Component {
   render() {
-    const {activeColor, color, height, width} = this.props,
+    const {height, width} = this.props,
       activeLogoColor = Theme.palette.primary.main,
       logoColor = Theme.palette.secondary.main,
       logoHeight = undefined !== height ? height : 'auto',
