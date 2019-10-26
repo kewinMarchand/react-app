@@ -13,8 +13,8 @@ class PageHeader extends Component {
                 component={'header'}
                 style={{
                     textAlign: 'center',
-                    paddingBottom: 48,
-                    paddingTop: 48
+                    paddingBottom: 64,
+                    paddingTop: 64
                 }}
             >
                 {undefined !== title && 

@@ -26,12 +26,14 @@ class snackbarStore {
         }
         this.snackbar = {
             message: '',
-            snackbarIsOpen: false 
+            snackbarIsOpen: false,
+            success: false
         }
     }
 
     get snackbarBackgroundColor() {
-        let snackbarBackgroundColor = this.success ? Theme.palette.primary.main : Theme.palette.error.dark
+        const { primary, error } = Theme.palette 
+        let snackbarBackgroundColor = true === this.snackbar.success ? primary.main : error.dark
         return snackbarBackgroundColor
     }
 }

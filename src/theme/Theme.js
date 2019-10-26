@@ -29,7 +29,7 @@ const typography = {
         fontWeight: 700
     },
     h2: {
-        fontSize: '3rem',
+        fontSize: '2.8rem',
         fontWeight: 500
     },
     h3: {

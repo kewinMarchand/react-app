@@ -6,9 +6,10 @@ import {Grid, Typography} from '@material-ui/core'
 
 class Container extends Component {
   render() {
-      const { backgroundColor, backgroundImage, marginTop } = this.props,
+      const { backgroundColor, backgroundImage, marginBottom, marginTop } = this.props,
         containerBackgroundColor = undefined !== backgroundColor ? backgroundColor : '',
         containerBackgroundImage = undefined !== backgroundImage ? 'url('+backgroundImage+')' : '',
+        containerMarginBottom = undefined !== marginBottom ? marginBottom : 0,
         containerMarginTop = undefined !== marginTop ? marginTop : 0,
         hasBackground = '' !== containerBackgroundColor || '' !==  containerBackgroundImage,
         color = hasBackground ? Theme.palette.textLight : 'inherit'
@@ -20,6 +21,7 @@ class Container extends Component {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 color: color,
+                marginBottom: containerMarginBottom,
                 marginTop: containerMarginTop
             }}
         >

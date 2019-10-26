@@ -1,6 +1,4 @@
 import React, { Component } from "react"
-// Theme
-import Theme from "../theme/Theme"
 // UI components
 import {Grid, Typography} from '@material-ui/core'
 // custom components
@@ -24,7 +22,13 @@ class Home extends Component {
                         >
                             Lorem ipsum dolor sit amet
                         </Typography>
-                        <Typography>
+                        <Typography gutterBottom>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus hic natus veritatis voluptate molestiae mollitia non. Quasi unde maxime ducimus ipsa velit necessitatibus pariatur. Voluptas, tenetur itaque? Nostrum quo nesciunt mollitia tenetur magni quas, expedita maiores veniam harum! Inventore ratione corporis tempora? Iusto nisi dolorum animi quam praesentium dignissimos assumenda.
+                        </Typography>
+                        <Typography gutterBottom>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus hic natus veritatis voluptate molestiae mollitia non. Quasi unde maxime ducimus ipsa velit necessitatibus pariatur. Voluptas, tenetur itaque? Nostrum quo nesciunt mollitia tenetur magni quas, expedita maiores veniam harum! Inventore ratione corporis tempora? Iusto nisi dolorum animi quam praesentium dignissimos assumenda.
+                        </Typography>
+                        <Typography gutterBottom>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus hic natus veritatis voluptate molestiae mollitia non. Quasi unde maxime ducimus ipsa velit necessitatibus pariatur. Voluptas, tenetur itaque? Nostrum quo nesciunt mollitia tenetur magni quas, expedita maiores veniam harum! Inventore ratione corporis tempora? Iusto nisi dolorum animi quam praesentium dignissimos assumenda.
                         </Typography>
                     </Grid>
