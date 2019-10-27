@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+// mobx & stores
+import {inject, observer} from 'mobx-react'
 // Theme
 import Theme from "../theme/Theme"
 // UI components
@@ -7,23 +9,23 @@ import {Card, CardContent, CardHeader, Grid, Typography} from '@material-ui/core
 import PageLayout from '../components/page/PageLayout'
 
 class Article extends Component {
+
   render() {
-    const { match } = this.props
+    const { match, stores } = this.props,
+      post = stores.uiStore.posts[match.params.id]
+
     return (
         <PageLayout
             backgroundColor={Theme.palette.primary.main}
             title={'Blog'}
-            subtitle={'Dernières actualités'}
+            subtitle={stores.uiStore.capitalize(post.title)}
         >
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Card>
-              <CardHeader
-                title={'Article n° ' + match.params.id}
-              />
               <CardContent>
                 <Typography>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatem dolorum laboriosam nostrum distinctio recusandae? Incidunt, quibusdam blanditiis sunt magnam quas tempora odio ea corrupti sapiente ducimus necessitatibus ipsum, culpa eos optio? Repellendus pariatur odio, animi sit facilis ex soluta nobis sint eligendi molestias tempora quo cum ullam fugit amet.
+                  {stores.uiStore.capitalize(post.body)}
                 </Typography>
               </CardContent>
             </Card>
@@ -34,4 +36,4 @@ class Article extends Component {
   }
 }
 
-export default Article
+export default inject('stores')(observer(Article))

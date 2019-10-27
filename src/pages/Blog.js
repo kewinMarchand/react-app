@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 // history
 import { withRouter } from 'react-router-dom'
+// mobx & stores
+import {inject, observer} from 'mobx-react'
 // Theme
 import Theme from "../theme/Theme"
 // UI components
@@ -9,8 +11,15 @@ import {Button, Card, CardActions, CardContent, CardHeader, Grid, Typography} fr
 import PageLayout from '../components/page/PageLayout'
 
 class Blog extends Component {
+
   render() {
-    const { history } = this.props
+    const { history, stores } = this.props
+    const { posts } = stores.uiStore
+
+    if (null === posts || undefined === posts) {
+      return false
+    }
+
     return (
         <PageLayout
             backgroundColor={Theme.palette.primary.main}
@@ -18,81 +27,33 @@ class Blog extends Component {
             subtitle={'Dernières actualités'}
         >
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardHeader
-                title={'Article n° 01'}
-              />
-              <CardContent>
-                <Typography>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatem dolorum laboriosam nostrum distinctio recusandae? Incidunt, quibusdam blanditiis sunt magnam quas tempora odio ea corrupti sapiente ducimus necessitatibus ipsum, culpa eos optio? Repellendus pariatur odio, animi sit facilis ex soluta nobis sint eligendi molestias tempora quo cum ullam fugit amet.
-                </Typography>
+          {posts.map((post, i) => (
+            <Grid item xs={12} md={6} lg={4} key={'post' + i}>
+              <Card style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+                <CardHeader title={stores.uiStore.capitalize(post.title)}/>
+                <CardContent style={{flexGrow: 1}}>
+                  <Typography gutterBottom>
+                    {stores.uiStore.capitalize(post.body)}
+                  </Typography>
+                </CardContent>
                 <CardActions>
-                  <Grid container justify={'flex-end'}>
-                    <Button
-                      color={'secondary'}
-                      onClick={() => history.push('article/01')}
-                      variant={'contained'}
-                    >
-                      Voir plus
-                    </Button>
-                  </Grid>
-                </CardActions>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardHeader
-                title={'Article n° 02'}
-              />
-              <CardContent>
-                <Typography>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatem dolorum laboriosam nostrum distinctio recusandae? Incidunt, quibusdam blanditiis sunt magnam quas tempora odio ea corrupti sapiente ducimus necessitatibus ipsum, culpa eos optio? Repellendus pariatur odio, animi sit facilis ex soluta nobis sint eligendi molestias tempora quo cum ullam fugit amet.
-                </Typography>
-                <CardActions>
-                  <Grid container justify={'flex-end'}>
-                    <Button
-                      color={'secondary'}
-                      onClick={() => history.push('article/02')}
-                      variant={'contained'}
-                    >
-                      Voir plus
-                    </Button>
-                  </Grid>
-                </CardActions>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardHeader
-                title={'Article n° 03'}
-              />
-              <CardContent>
-                <Typography>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, voluptatem dolorum laboriosam nostrum distinctio recusandae? Incidunt, quibusdam blanditiis sunt magnam quas tempora odio ea corrupti sapiente ducimus necessitatibus ipsum, culpa eos optio? Repellendus pariatur odio, animi sit facilis ex soluta nobis sint eligendi molestias tempora quo cum ullam fugit amet.
-                </Typography>
-                <CardActions>
-                  <Grid container justify={'flex-end'}>
-                    <Button
-                      color={'secondary'}
-                      onClick={() => history.push('article/03')}
-                      variant={'contained'}
-                    >
-                      Voir plus
-                    </Button>
-                  </Grid>
-                </CardActions>
-              </CardContent>
-            </Card>
-          </Grid>
+                    <Grid container justify={'flex-end'} style={{margin: 16}}>
+                      <Button
+                        color={'secondary'}
+                        onClick={() => history.push('article/' + i)}
+                        variant={'contained'}
+                      >
+                        Voir plus
+                      </Button>
+                    </Grid>
+                  </CardActions>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </PageLayout>
     )
   }
 }
 
-export default withRouter(Blog)
+export default inject('stores')(withRouter(observer(Blog)))

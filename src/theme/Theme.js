@@ -44,9 +44,18 @@ const typography = {
     },
 }
 
+const overrides = {
+    MuiButton: {
+        label: {
+            color: '#FFF'
+        }
+    }
+}
+
 let Theme = createMuiTheme({
-  palette,
-  typography
+    overrides,
+    palette,
+    typography
 });
 
 export default Theme = responsiveFontSizes(Theme);
