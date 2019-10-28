@@ -1,4 +1,4 @@
-// functions
+// core functions
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 // MUI colors
 import { green, orange } from '@material-ui/core/colors';
@@ -46,7 +46,7 @@ const typography = {
 
 const overrides = {
     MuiButton: {
-        label: {
+        containedSecondary: {
             color: '#FFF'
         }
     }

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react"
 // custom components
 import Container from "../Container"
+import GoBackBtn from "../buttons/GoBackBtn"
 import PageHeader from "./PageHeader"
 
 class PageLayout extends Component {
@@ -14,8 +15,11 @@ class PageLayout extends Component {
                 subtitle={subtitle}
                 title={title}
             />
-            <Container marginBottom={24} marginTop={24}>
+            <Container marginBottom={32} marginTop={32}>
+              <Fragment>
+                <GoBackBtn/>
                 {this.props.children}
+              </Fragment>
             </Container>
       </Fragment>
     )

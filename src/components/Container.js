@@ -6,11 +6,13 @@ import {Grid, Typography} from '@material-ui/core'
 
 class Container extends Component {
   render() {
-      const { backgroundColor, backgroundImage, marginBottom, marginTop } = this.props,
+      const { backgroundColor, backgroundImage, marginBottom, marginTop, paddingBottom, paddingTop } = this.props,
         containerBackgroundColor = undefined !== backgroundColor ? backgroundColor : '',
         containerBackgroundImage = undefined !== backgroundImage ? 'url('+backgroundImage+')' : '',
         containerMarginBottom = undefined !== marginBottom ? marginBottom : 0,
         containerMarginTop = undefined !== marginTop ? marginTop : 0,
+        containerPaddingBottom = undefined !== paddingBottom ? paddingBottom : 0,
+        containerPaddingTop = undefined !== paddingTop ? paddingTop : 0,
         hasBackground = '' !== containerBackgroundColor || '' !==  containerBackgroundImage,
         color = hasBackground ? Theme.palette.textLight : 'inherit'
     return (
@@ -22,7 +24,9 @@ class Container extends Component {
                 backgroundSize: 'cover',
                 color: color,
                 marginBottom: containerMarginBottom,
-                marginTop: containerMarginTop
+                marginTop: containerMarginTop,
+                paddingBottom: containerPaddingBottom,
+                paddingTop: containerPaddingTop
             }}
         >
             <Grid container 

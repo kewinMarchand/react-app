@@ -8,14 +8,15 @@ class PageHeader extends Component {
   render() {
     const {backgroundColor, backgroundImage, subtitle, title} = this.props
     return (
-        <Container backgroundColor={backgroundColor} backgroundImage={backgroundImage}>
+        <Container 
+            backgroundColor={backgroundColor} 
+            backgroundImage={backgroundImage}
+            paddingBottom={64}
+            paddingTop={64}
+        >
             <Grid item
                 component={'header'}
-                style={{
-                    textAlign: 'center',
-                    paddingBottom: 64,
-                    paddingTop: 64
-                }}
+                style={{textAlign: 'center'}}
             >
                 {undefined !== title && 
                 <Typography variant={'h1'} gutterBottom>
