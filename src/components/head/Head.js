@@ -2,7 +2,7 @@ import React, { Component } from "react"
 // Helmet
 import { Helmet } from 'react-helmet'
 
-class Ssr extends Component {
+class Head extends Component {
     render() {
         const {backgroundColor, backgroundImage, subtitle, title} = this.props
         return (
@@ -15,4 +15,4 @@ class Ssr extends Component {
     }
 }
 
-export default Ssr
+export default Head

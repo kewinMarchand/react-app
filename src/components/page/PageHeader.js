@@ -3,14 +3,14 @@ import React, { Component, Fragment } from "react"
 import {Grid, Typography} from '@material-ui/core'
 // custom components
 import Container from "../Container"
-import Ssr from '../ssr/Ssr'
+import Head from '../head/Head'
 
 class PageHeader extends Component {
     render() {
         const {backgroundColor, backgroundImage, subtitle, title} = this.props
         return (
             <Fragment>
-                <Ssr
+                <Head
                     backgroundColor={backgroundColor} 
                     backgroundImage={backgroundImage}
                     title={title}
