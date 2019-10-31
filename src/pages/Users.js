@@ -10,33 +10,44 @@ import {Button, Card, CardActions, CardContent, CardHeader, Grid, Typography} fr
 // custom components
 import PageLayout from '../components/page/PageLayout'
 
-class Blog extends Component {
+class Users extends Component {
 
   render() {
-    const { history, stores } = this.props
-    const { capitalize, posts } = stores.uiStore
+    const { history, stores } = this.props,
+        { capitalize, users } = stores.uiStore
 
     return (
         <PageLayout
-            backgroundColor={Theme.palette.primary.main}
-            title={'Blog'}
-            subtitle={'Dernières actualités'}
+            backgroundColor={Theme.palette.secondary.main}
+            title={'Utilisateurs'}
+            subtitle={'Notre communauté'}
         >
         <Grid container spacing={4}>
-          {posts.map((post, i) => (
+          {users.map((user, i) => (
             <Grid item xs={12} md={6} lg={4} key={'post' + i}>
               <Card style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-                <CardHeader title={capitalize(post.title)}/>
+                <CardHeader 
+                    title={capitalize(user.name)}
+                    subheader={capitalize(user.username)}
+                />
                 <CardContent style={{flexGrow: 1}}>
-                  <Typography gutterBottom>
-                    {capitalize(post.body)}
-                  </Typography>
+                    <Grid container direction={'column'} alignItems={'flex-end'}>
+                        <Typography gutterBottom>
+                            {user.email}
+                        </Typography>
+                        <Typography gutterBottom>
+                            {user.phone}
+                        </Typography>
+                        <Typography gutterBottom>
+                            {user.website}
+                        </Typography>
+                    </Grid>
                 </CardContent>
                 <CardActions>
                     <Grid container justify={'flex-end'} style={{margin: 16}}>
                       <Button
-                        color={'secondary'}
-                        onClick={() => history.push('article/' + post.id)}
+                        color={'primary'}
+                        onClick={() => history.push('utilisateur/' + i)}
                         variant={'contained'}
                       >
                         Voir plus
@@ -52,4 +63,4 @@ class Blog extends Component {
   }
 }
 
-export default inject('stores')(withRouter(observer(Blog)))
+export default inject('stores')(withRouter(observer(Users)))

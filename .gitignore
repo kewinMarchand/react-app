@@ -12,6 +12,9 @@
 
 /.netlify
 
+# api
+/src/api
+
 # misc
 .DS_Store
 .env.local

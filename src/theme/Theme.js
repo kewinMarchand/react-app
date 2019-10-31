@@ -46,6 +46,9 @@ const typography = {
 
 const overrides = {
     MuiButton: {
+        containedPrimary: {
+            color: '#FFF'
+        },
         containedSecondary: {
             color: '#FFF'
         }

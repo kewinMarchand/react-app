@@ -15,7 +15,7 @@ class Article extends Component {
   render() {
     const { match, stores } = this.props,
       { capitalize, posts } = stores.uiStore,
-      post = posts[match.params.id],
+      post = posts.find(post => parseInt(post.id) === parseInt(match.params.id)),
       { body, title } = post
 
     return (

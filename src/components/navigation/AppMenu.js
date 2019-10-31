@@ -36,6 +36,10 @@ class AppMenu extends Component {
                     text={'Blog'}
                 />
                 <MenuLink
+                    to={'/utilisateurs'}
+                    text={'Utilisateurs'}
+                />
+                <MenuLink
                     to={'/contact'}
                     text={'Contact'}
                 />             
