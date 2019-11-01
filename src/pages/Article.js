@@ -14,10 +14,8 @@ class Article extends Component {
 
   render() {
     const { match, stores } = this.props,
-      { capitalize, comments, posts, users } = stores.uiStore,
-      post = posts.find(post => parseInt(post.id) === parseInt(match.params.id)),
-      { body, title } = post,
-      postComment = comments.filter(comment => comment.postId === post.id)
+      { capitalize, getPost, getPostAuthor, getPostComments } = stores.uiStore,
+      { body, id, title, userId } = getPost(match.params.id)
 
     return (
         <PageLayout
@@ -29,39 +27,41 @@ class Article extends Component {
           <Grid item xs={12} align={'center'}>
             <Card style={{maxWidth: 600}}>
               <CardContent>
-                <Grid container >
-                  <Typography gutterBottom>
-                    {capitalize(body)}
+                <Grid container justify={'flex-end'} >
+                  <Typography gutterBottom variant={'caption'} style={{marginBottom: 16}}>
+                    Article de {getPostAuthor(userId).username}
                   </Typography>
                 </Grid>
+                <Grid container >
+                  <Typography gutterBottom>{capitalize(body)}</Typography>
+                </Grid>
                 <Box display={{ xs: 'none', lg: 'block' }}>
-                  <Grid 
-                    container
-                    style={{marginTop: 24}}
-                  >
+                  <Grid container style={{marginTop: 24}}>
                     <Typography gutterBottom>
                       {text}
                     </Typography>
                   </Grid>
                 </Box>
-                {0 < postComment.length &&
+                {0 < getPostComments(id).length &&
                   <Grid 
                     container
                     style={{marginTop: 40}}
                   >
-                    <Typography gutterBottom>
-                      Commentaires associés:
-                    </Typography>
+                    <Typography gutterBottom variant={'caption'}>Commentaires associés:</Typography>
                     <Grid container direction={'column'} alignItems={'flex-start'}>
-                      {postComment.map((comment, i) => (
+                      {getPostComments(id).map((comment, i) => (
                         <Fragment key={'commentaire ' + comment.id}>     
-                          <Typography gutterBottom style={{marginBottom: 16, marginTop: 16}}>
-                            N°{++i} De {comment.email}
+                          <Typography 
+                            gutterBottom
+                            variant={'caption'}
+                            style={{marginBottom: 8, marginTop: 16}}
+                          >
+                            De {comment.email}
                           </Typography>
-                          <Typography gutterBottom align={'left'}>
+                          <Typography gutterBottom variant={'caption'} align={'left'}>
                             {capitalize(comment.name)}
                           </Typography>
-                          <Typography gutterBottom align={'left'} style={{marginBottom: 16}}>
+                          <Typography gutterBottom variant={'caption'} align={'left'} style={{marginBottom: 16}}>
                             {capitalize(comment.body)}
                           </Typography>
                         </Fragment>

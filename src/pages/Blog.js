@@ -6,16 +6,18 @@ import {inject, observer} from 'mobx-react'
 // Theme
 import Theme from "../theme/Theme"
 // UI components
-import {Button, Card, CardActions, CardContent, CardHeader, Grid, Typography} from '@material-ui/core'
+import {Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography} from '@material-ui/core'
 // custom components
 import PageLayout from '../components/page/PageLayout'
+// Icons
+import CommentIcon from '@material-ui/icons/Comment'
 
 class Blog extends Component {
 
   render() {
     const { history, stores } = this.props
-    const { capitalize, posts } = stores.uiStore
-
+    const { capitalize, getPostComments, posts } = stores.uiStore
+    
     return (
         <PageLayout
             backgroundColor={Theme.palette.primary.main}
@@ -31,6 +33,26 @@ class Blog extends Component {
                   <Typography gutterBottom>
                     {capitalize(post.body)}
                   </Typography>
+                  <Grid 
+                    container 
+                    alignItems={'center'} 
+                    justify={'flex-end'}
+                  >
+                    <Grid item>
+                        <IconButton 
+                            aria-label="commentaires associés"
+                            color={'secondary'}
+                        >
+                            <CommentIcon/>
+                        </IconButton>
+                        <Typography
+                            style={{marginLeft: 16}}
+                            variant={'caption'}
+                        >
+                            {getPostComments(post.id).length} commentaires
+                        </Typography>
+                    </Grid>
+                  </Grid>  
                 </CardContent>
                 <CardActions>
                     <Grid container justify={'flex-end'} style={{margin: 16}}>
