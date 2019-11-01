@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 // mobx & stores
 import {inject, observer} from 'mobx-react'
 // Theme
@@ -14,9 +14,10 @@ class Article extends Component {
 
   render() {
     const { match, stores } = this.props,
-      { capitalize, posts } = stores.uiStore,
+      { capitalize, comments, posts, users } = stores.uiStore,
       post = posts.find(post => parseInt(post.id) === parseInt(match.params.id)),
-      { body, title } = post
+      { body, title } = post,
+      postComment = comments.filter(comment => comment.postId === post.id)
 
     return (
         <PageLayout
@@ -33,78 +34,41 @@ class Article extends Component {
                     {capitalize(body)}
                   </Typography>
                 </Grid>
-                <Box 
-                  display={{ 
-                    xs: 'none', 
-                    sm: 'block',
-                    md: 'block', 
-                    lg: 'block', 
-                    xl: 'block' 
-                  }}
-                >
+                <Box display={{ xs: 'none', lg: 'block' }}>
                   <Grid 
                     container
-                    style={{marginTop: 40}}
+                    style={{marginTop: 24}}
                   >
                     <Typography gutterBottom>
                       {text}
                     </Typography>
                   </Grid>
                 </Box>
-                <Box 
-                  display={{ 
-                    xs: 'none', 
-                    sm: 'none', 
-                    md: 'block', 
-                    lg: 'block', 
-                    xl: 'block' 
-                  }}
-                >
+                {0 < postComment.length &&
                   <Grid 
                     container
                     style={{marginTop: 40}}
                   >
                     <Typography gutterBottom>
-                      {text}
+                      Commentaires associés:
                     </Typography>
+                    <Grid container direction={'column'} alignItems={'flex-start'}>
+                      {postComment.map((comment, i) => (
+                        <Fragment key={'commentaire ' + comment.id}>     
+                          <Typography gutterBottom style={{marginBottom: 16, marginTop: 16}}>
+                            N°{++i} De {comment.email}
+                          </Typography>
+                          <Typography gutterBottom align={'left'}>
+                            {capitalize(comment.name)}
+                          </Typography>
+                          <Typography gutterBottom align={'left'} style={{marginBottom: 16}}>
+                            {capitalize(comment.body)}
+                          </Typography>
+                        </Fragment>
+                      ))}
+                    </Grid>
                   </Grid>
-                </Box>
-                <Box 
-                  display={{ 
-                    xs: 'none', 
-                    sm: 'none', 
-                    md: 'none', 
-                    lg: 'block',
-                    xl: 'block' 
-                  }}
-                >
-                  <Grid 
-                    container
-                    style={{marginTop: 40}}
-                  >
-                    <Typography gutterBottom>
-                      {text}
-                    </Typography>
-                  </Grid>
-                </Box>
-                <Box 
-                  display={{ 
-                    xs: 'none', 
-                    sm: 'none', 
-                    md: 'none', 
-                    lg: 'none', 
-                    xl: 'block' 
-                  }}
-                >
-                  <Grid 
-                    container
-                    style={{marginTop: 40}}
-                  >
-                    <Typography gutterBottom>
-                      {text}
-                    </Typography>
-                  </Grid>
-                </Box>
+                }
               </CardContent>
             </Card>
           </Grid>

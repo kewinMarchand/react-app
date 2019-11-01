@@ -51,7 +51,6 @@ class User extends Component {
                               <Typography gutterBottom>
                                 Articles publiés:
                               </Typography>
-
                               {filteredPostsArray.map(post => (
                                 <Link to={'/article/' + post.id} key={'lien vers' + post.id}>
                                   <Typography gutterBottom>
@@ -59,8 +58,6 @@ class User extends Component {
                                   </Typography>
                                 </Link>
                               ))}
-
-
                           </Fragment>
                         }
                     </Grid>

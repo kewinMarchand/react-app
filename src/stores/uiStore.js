@@ -9,6 +9,8 @@ class uiStore {
 
     users = null
 
+    comments = null
+
     authenticate = () => {
         this.authenticated = true
     }
@@ -23,6 +25,7 @@ decorate(uiStore, {
     authenticated: observable,
     posts: observable,
     users: observable,
+    comments: observable,
     authenticate: action
 })
 

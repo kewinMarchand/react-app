@@ -22,6 +22,13 @@ class Routes extends Component {
       this.props.stores.uiStore.posts = posts
   }
 
+  getComments = async () => {
+    let response = await fetch(endpoint + 'comments'),
+      comments = await response.json()
+
+      this.props.stores.uiStore.comments = comments
+  }
+
   getUsers = async () => {
     let response = await fetch(endpoint + 'users'),
       users = await response.json()
@@ -34,14 +41,16 @@ class Routes extends Component {
 
   componentDidMount() {
     this.getPosts()
+    this.getComments()
     this.getUsers()
   }
 
   render() {
 
-    const { posts, users } = this.props.stores.uiStore
+    const { comments, posts, users } = this.props.stores.uiStore,
+      datasWasReady = this.dataIsReady(comments) && this.dataIsReady(posts) && this.dataIsReady(users)
 
-    if (!this.dataIsReady(posts) || !this.dataIsReady(users)) {
+    if (!datasWasReady) {
       return false
     }
     
