@@ -13,6 +13,8 @@ import { CssBaseline, Grid } from '@material-ui/core'
 import AppHeader from '../navigation/AppHeader'
 import AppFooter from '../footer/AppFooter'
 import CommonSnackbar from '../snackbar/CommonSnackbar'
+// effects
+import ScrollToTop from '../../effects/ScrollToTop'
 
 class AppLayout extends Component {
 
@@ -22,6 +24,7 @@ class AppLayout extends Component {
                 <ThemeProvider theme={Theme}>
                     <CssBaseline/>
                     <Router>
+                        <ScrollToTop/>
                         <AppHeader/>
                         <Grid container
                             className="App"
